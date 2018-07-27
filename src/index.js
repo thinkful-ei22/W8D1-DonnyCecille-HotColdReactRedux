@@ -11,7 +11,8 @@ import { newGame, enterGuess  } from './actions';
 
 console.log('testing');
 store.dispatch(enterGuess("23"));
-
+store.dispatch(enterGuess("66"));
+store.dispatch(enterGuess("12"));
 console.log(store.getState());
 
 

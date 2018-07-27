@@ -1,4 +1,4 @@
-import { NEW_GAME, ENTER_GUESS  } from '../actions';
+import { NEW_GAME, ENTER_GUESS, ABOUT_INFO  } from '../actions';
 
 const initialState = {
 
@@ -77,6 +77,22 @@ export const hotColdReducer = (state=initialState, action ) => {
         //     feedback
         // })
 
+    }
+
+    if (action.type === NEW_GAME){
+        return Object.assign({}, state, {
+
+            guessArray : [],
+            feedback : "Take a Guess!",
+            answer: Math.floor(Math.random()*101),
+
+
+        });
+    }
+
+    if(action.type === ABOUT_INFO){
+
+        
     }
 
 };
