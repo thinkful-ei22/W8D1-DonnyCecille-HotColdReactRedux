@@ -7,7 +7,7 @@ export default function TopNav(props) {
         <nav>
             <ul className="clearfix">
                 <li>
-                    <a onClick={props.handleModal} className="what" href="#">
+                    <a onClick={props.handleDisplayInfo} className="what" href="#">
                         What?
                     </a>
                 </li>

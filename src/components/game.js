@@ -4,111 +4,58 @@ import Header from './header';
 import GuessSection from './guess-section';
 import GuessCount  from './guess-count';
 import GuessList from './guess-list';
+import InfoModal from './info-modal';
+import {connect} from 'react-redux';
+import {enterGuess,newGame,aboutInfo} from '../actions';
 import './game.css';
 
-export default class Game extends React.Component{
+class Game extends React.Component{
     
-    constructor(props){
-        super(props);
+   
 
-
-        this.state={
-           
-            guessArray : [],
-            feedback : "Take a Guess!",
-            answer: Math.floor(Math.random()*101),
-
-        }
-    }
-
-
-    //game logic
-    updateGameState(userGuess){
-        
-        
-         if(isNaN(userGuess)){
-
-            alert('You entered NOT A NUMBER');
-
-            return;
-         } 
-
-         //check if duplicate number
-
-         if(this.state.guessArray.includes(userGuess)){
-
-            alert('You entered this number already!');
-
-            return;
-         }
-
-
-        
-        
-         //calculate the absolute differnce between our guess and our answer
-
-
-        const diff = Math.abs(parseInt(userGuess) -this.state.answer);
-
-        let feedback;
-
-        if(diff > 50){ 
-            feedback = 'You are Ice Cold';
-        }
-        else if(diff  > 25){
-
-            feedback = 'You are cold';
-        }
-
-        else if(diff > 10){
-
-            feedback = 'You are lukewarm'
-        }
-        else if(diff > 2){
-
-            feedback = 'You are warm'
-        }
-        else if(diff <= 2){
-
-            feedback = 'You are hot'
-        } 
-        else if(diff === 0){
-            feedback = 'You are WINNER! '
-        }
-
-        this.setState({
-            guessArray : [ ...this.state.guessArray, userGuess],
-            feedback
-        })
-
-
-    }
-
-
-
-    newGame(){
-        this.setState({
-            guessArray : [],
-            feedback : "Take a Guess!",
-            answer: Math.floor(Math.random()*101),
-        })
-    }
-
-
-
+    // newGame(){
+    //     // this.setState({
+    //     //     guessArray : [],
+    //     //     feedback : "Take a Guess!",
+    //     //     answer: Math.floor(Math.random()*101),
+    //     // })
+    // }
 
 
     render(){
-        return (
+       
+        if(!this.props.displayInfo){ 
+            return (
             <div>
-                <Header handleNewGame={()=>this.newGame()}/>
+                <Header handleDisplayInfo={()=>this.props.dispatch(aboutInfo(true))} handleNewGame={()=>this.props.dispatch(newGame(true))}/>
                 <div className="game">
-                <GuessSection feedback={this.state.feedback} handleGuess={userGuess => this.updateGameState(userGuess)} />
-                <GuessCount count={this.state.guessArray.length} />
-                <GuessList guesses={this.state.guessArray} />
+                <GuessSection feedback={this.props.feedback} handleGuess={userGuess => this.props.dispatch(enterGuess(userGuess))} />
+                <GuessCount count={this.props.guessArray.length} />
+                <GuessList guesses={this.props.guessArray} />
                 </div>
             </div>
-        );
+            );
+        } else{
+            return(
+                <div>
+                    <InfoModal handleDisplayNone={()=>this.props.dispatch(aboutInfo(false))} />
+                </div>
+             );   
+      
+        }
+       
     }
 }
 
+
+
+
+export const mapStateToProps = state =>({
+     guessArray : state.guessArray,
+     feedback : state.feedback ,
+     answer: state.answer,
+     displayInfo: state.displayInfo
+
+});
+
+export default connect(mapStateToProps)(Game);

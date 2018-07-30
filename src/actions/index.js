@@ -6,9 +6,9 @@
 
 export const NEW_GAME = 'NEW_GAME';
 
-export const newGame = start => ({
+export const newGame = () => ({
     type: NEW_GAME,
-    start
+    
 });
 
 
@@ -27,7 +27,7 @@ export const enterGuess = userGuess => ({
 
 export const ABOUT_INFO = 'ABOUT_INFO';
 
-export const aboutInfo = display => ({
-    type: NEW_GAME,
-    display
+export const aboutInfo = displayInfo => ({
+    type: ABOUT_INFO,
+    displayInfo
 });

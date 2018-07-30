@@ -4,28 +4,29 @@ import TopNav from './top-nav';
 import InfoModal from './info-modal';
 
 import './header.css';
+import { aboutInfo } from '../actions';
 
-export default class Header extends React.Component{
+export default function Header(props){
     
-    constructor(props){
-        super(props);
+    console.log('MY PROPS' + props.handleDisplayInfo);
+    // constructor(props){
+    //     super(props);
 
-        this.state={
+    //     // this.state={
 
-            styles: { display: 'none' }
+    //     //     styles: { display: 'none' }
 
-        }
+    //     // }
 
 
-    }
+    // }
     
-        render(){ 
+      
             return (
                 <header>
-                    <TopNav handleModal={ ()=> {this.setState({styles: { }})}} handleNewGame={this.props.handleNewGame} />
-                     { <InfoModal styles={this.state.styles} handleModal={()=> {this.setState({styles: { display:'none'}})}}  />} 
+                    <TopNav handleDisplayInfo={props.handleDisplayInfo} handleNewGame={props.handleNewGame} />
                     <h1>HOT or COLD</h1>
                 </header>
             );
-        }
+        
 };

@@ -2,9 +2,10 @@ import { NEW_GAME, ENTER_GUESS, ABOUT_INFO  } from '../actions';
 
 const initialState = {
 
-    guessArray : [],
+    guessArray : [23],
     feedback : "Take a Guess!",
     answer: Math.floor(Math.random()*101),
+    displayInfo: false
 
 
 };
@@ -85,14 +86,22 @@ export const hotColdReducer = (state=initialState, action ) => {
             guessArray : [],
             feedback : "Take a Guess!",
             answer: Math.floor(Math.random()*101),
+            displayInfo:false
 
 
         });
     }
 
     if(action.type === ABOUT_INFO){
+        return Object.assign({}, state, {
 
-        
+            displayInfo: action.displayInfo
+
+        });
+            
     }
+
+
+    return state;
 
 };
